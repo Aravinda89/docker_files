@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  jupyter_nb:
+    build:
+      context: .
+      dockerfile: jupyter_nb
+    container_name: jupyter_nb
+    user: root
+    ports:
+      - "8888:8888"
+    environment:
+      - GRANT_SUDO=yes
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ "1" ]
+              capabilities: [ gpu, compute, utility ]
+#    volumes:
+#      - /media/gayan:/home/gayan
